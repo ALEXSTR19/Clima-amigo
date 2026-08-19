@@ -1,10 +1,19 @@
-<div class="galeria">
-    <button class="galeria__button" (click)="anterior()">&#10094;</button>
+<section class="galeria" aria-roledescription="carrusel" aria-label="Proyectos de Clima Amigo" tabindex="0" (keydown)="manejarTeclado($event)">
+  <div class="galeria__marco" aria-live="polite">
+    <img class="galeria__imagen" [src]="imagenes[indiceActual].src" [alt]="imagenes[indiceActual].alt" />
+    <div class="galeria__sombra"></div>
+    <div class="galeria__contenido">
+      <span class="galeria__etiqueta">{{ imagenes[indiceActual].etiqueta }}</span>
+      <h3>{{ imagenes[indiceActual].titulo }}</h3>
+      <p>{{ imagenes[indiceActual].descripcion }}</p>
+    </div>
 
-<div class="contenedor">
-<img *ngFor="let imagen of imagenes; let i = index" 
-     [src]="imagen" 
-     [class.activa]="i === indiceActual"
-     class="galeria__imagen"></div>
-<button class="galeria__button" (click)="siguiente()">&#10095;</button>
-</div>
+    <button class="galeria__flecha galeria__flecha--anterior" type="button" (click)="anterior()" aria-label="Ver imagen anterior">‹</button>
+    <button class="galeria__flecha galeria__flecha--siguiente" type="button" (click)="siguiente()" aria-label="Ver imagen siguiente">›</button>
+    <span class="galeria__contador" aria-hidden="true">0{{ indiceActual + 1 }} / 0{{ imagenes.length }}</span>
+  </div>
+
+  <div class="galeria__puntos" aria-label="Seleccionar imagen">
+    <button *ngFor="let imagen of imagenes; let i = index" type="button" class="galeria__punto" [class.galeria__punto--activo]="i === indiceActual" [attr.aria-current]="i === indiceActual ? 'true' : null" [attr.aria-label]="'Ver imagen ' + (i + 1) + ': ' + imagen.titulo" (click)="irA(i)"></button>
+  </div>
+</section>

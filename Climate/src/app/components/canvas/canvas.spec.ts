@@ -19,4 +19,13 @@ describe('Canvas', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should navigate through every gallery image in a loop', () => {
+    component.anterior();
+    expect(component.indiceActual).toBe(component.imagenes.length - 1);
+    component.siguiente();
+    expect(component.indiceActual).toBe(0);
+    component.irA(2);
+    expect(component.indiceActual).toBe(2);
+  });
 });

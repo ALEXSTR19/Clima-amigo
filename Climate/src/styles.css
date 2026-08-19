@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #f7faf7; font-family: 'Avenir Next', Avenir, 'Segoe UI', sans-serif; }
+button, a { font: inherit; }
+* { box-sizing: border-box; }
+::selection { color: white; background: #176b50; }
