@@ -1,0 +1,42 @@
+.galeria{
+  width: 800px;
+  height: 400px;
+  margin: auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+
+.contenedor{
+  width:700px;
+  height:350px;
+  display:flex;
+  justify-content:center;
+}
+
+
+.contenedor img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+  border-radius:15px;
+}
+
+
+.contenedor img.activa{
+  display:block;
+}
+
+
+.btn{
+  background:#0d6efd;
+  color:white;
+  border:none;
+  font-size:30px;
+  padding:10px 15px;
+  cursor:pointer;
+  border-radius:50%;
+}

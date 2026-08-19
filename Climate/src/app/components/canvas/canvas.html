@@ -1,0 +1,10 @@
+<div class="galeria">
+    <button class="galeria__button" (click)="anterior()">&#10094;</button>
+
+<div class="contenedor">
+<img *ngFor="let imagen of imagenes; let i = index" 
+     [src]="imagen" 
+     [class.activa]="i === indiceActual"
+     class="galeria__imagen"></div>
+<button class="galeria__button" (click)="siguiente()">&#10095;</button>
+</div>
