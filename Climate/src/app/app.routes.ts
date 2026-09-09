@@ -7,44 +7,49 @@ export const routes: Routes = [
   {
     path: 'mantenimientos',
     loadComponent: () =>
-      import('./components/mantenimientos/mantenimientos')
-        .then(m => m.Mantenimientos)
+      import('./components/mantenimientos/mantenimientos').then((m) => m.Mantenimientos),
   },
 
   {
     path: 'inicio',
-    loadComponent: () =>
-      import('./components/inicio/inicio')
-        .then(i => i.Inicio)
+    loadComponent: () => import('./components/inicio/inicio').then((i) => i.Inicio),
   },
 
   {
     path: 'principal',
-    loadComponent: () =>
-      import('./components/principal/principal')
-        .then(p => p.Principal)
+    loadComponent: () => import('./components/principal/principal').then((p) => p.Principal),
   },
 
   {
     path: 'inventario',
-    loadComponent: () =>
-      import('./components/inventario/inventario')
-        .then(i => i.Inventario)
+    loadComponent: () => import('./components/inventario/inventario').then((i) => i.Inventario),
   },
 
   {
     path: 'dashboard',
-    loadComponent: () =>
-      import('./components/dashboard/dashboard')
-        .then(d => d.Dashboard)
+    loadComponent: () => import('./components/dashboard/dashboard').then((d) => d.Dashboard),
+    children: [
+      { path: '', redirectTo: 'principal', pathMatch: 'full' },
+      {
+        path: 'principal',
+        loadComponent: () => import('./components/principal/principal').then((p) => p.Principal),
+      },
+      {
+        path: 'inventario',
+        loadComponent: () => import('./components/inventario/inventario').then((i) => i.Inventario),
+      },
+      {
+        path: 'mantenimientos',
+        loadComponent: () =>
+          import('./components/mantenimientos/mantenimientos').then((m) => m.Mantenimientos),
+      },
+    ],
   },
 
   { path: 'login', component: Login },
 
   {
     path: 'registro',
-    loadComponent: () =>
-      import('./components/register/register')
-        .then(r => r.Register)
-  }
+    loadComponent: () => import('./components/register/register').then((r) => r.Register),
+  },
 ];

@@ -1,27 +1,25 @@
 <div class="layout">
-
-  <div class="sidebar">
+  <aside class="sidebar" aria-label="Menú del dashboard">
     <ul class="menu">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/principal">Principal</a>
+        <a class="nav-link" routerLink="principal" routerLinkActive="nav-link--active">Principal</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/inventario">Inventario</a>
+        <a class="nav-link" routerLink="inventario" routerLinkActive="nav-link--active"
+          >Inventario</a
+        >
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">Dashboard</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/mantenimientos">Mantenimientos</a>
+        <a class="nav-link" routerLink="mantenimientos" routerLinkActive="nav-link--active"
+          >Mantenimientos</a
+        >
       </li>
     </ul>
-  </div>
+  </aside>
 
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-
 </div>
