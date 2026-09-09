@@ -17,7 +17,7 @@ export class Login {
     this.authService.login(this.credentials).subscribe({
       next: (response) => {
         alert('¡Bienvenido!');
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         alert('Usuario o contraseña incorrectos');
