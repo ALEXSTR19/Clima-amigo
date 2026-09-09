@@ -1,1 +1,43 @@
-<p>inventario works!</p>
+<div class="container-fluid">
+
+  <h2>Inventario de equipos</h2>
+  <a class="btn btn-primary" routerLink="/Regisinv">Registrar Equipo</a >
+  <table class="table table-striped">
+
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Cantidad</th>
+        <th>Estado</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @for (item of inventario; track item.id) {
+
+        <tr>
+
+          <td>{{ item.id }}</td>
+          <td>{{ item.codigo }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.marca }}</td>
+          <td>{{ item.modelo }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.estado }}</td>
+
+        </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+</div>

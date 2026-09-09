@@ -1,0 +1,68 @@
+.container-fluid {
+  width: 100%;
+  padding: 30px;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin-bottom: 5px;
+}
+
+/* CONTENEDOR DE CARDS */
+
+.cards-container {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+
+  gap: 25px;
+
+  width: 100%;
+}
+
+/* CARD */
+
+.card {
+  background-color: #9bc3ec;
+
+  border-radius: 10px;
+
+  border: none;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* EFECTO AL PASAR EL MOUSE */
+
+.card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: rgb(109, 75, 30);
+}
+
+.card-text {
+  margin-bottom: 20px;
+}

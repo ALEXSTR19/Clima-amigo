@@ -43,6 +43,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/mantenimientos/mantenimientos').then((m) => m.Mantenimientos),
       },
+      {
+        path: 'Regisinv',
+        loadComponent: () =>
+          import('./components/inv-regis/inv-regis').then((i) => i.InvRegis),
+      },
     ],
   },
 
