@@ -91,7 +91,9 @@ public class InventarioService {
 
     // ELIMINAR
     public void eliminar(Long id) {
-        inventarioRepository.deleteById(id);
+        if (inventarioRepository.existsById(id)) {
+            inventarioRepository.deleteById(id);
+        }
     }
 
 
@@ -99,7 +101,13 @@ public class InventarioService {
     private void actualizarEstado(
             Inventario inventario) {
 
-        if (inventario.getCantidad() == 0) {
+        int cantidad = inventario.getCantidad() == null ? 0 : inventario.getCantidad();
+        int stockMinimo = inventario.getStockMinimo() == null ? 0 : inventario.getStockMinimo();
+
+        inventario.setCantidad(cantidad);
+        inventario.setStockMinimo(stockMinimo);
+
+        if (cantidad == 0) {
 
             inventario.setEstado("AGOTADO");
 

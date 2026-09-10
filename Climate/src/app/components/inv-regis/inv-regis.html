@@ -88,6 +88,22 @@
 
       </div>
 
+      <div class="form-group">
+
+        <label>Stock mínimo</label>
+
+        <input
+          type="number"
+          name="stockMinimo"
+          [value]="inventario.stockMinimo"
+          (input)="inventario.stockMinimo = +$any($event.target).value"
+          min="0"
+          required
+          class="form-control"
+        >
+
+      </div>
+
 
       <button
         type="submit"
