@@ -17,6 +17,7 @@ export class InvRegis {
     marca: '',
     modelo: '',
     cantidad: 0,
+    stockMinimo: 0,
     id: 0,
     estado: ''
   };
@@ -69,6 +70,7 @@ export class InvRegis {
       marca: '',
       modelo: '',
       cantidad: 0,
+      stockMinimo: 0,
       id: 0,
       estado: ''
     };

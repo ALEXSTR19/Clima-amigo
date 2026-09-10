@@ -1,43 +1,114 @@
-<div class="container-fluid">
+<section class="inventory-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Control de existencias</p>
+      <h1>Inventario de equipos</h1>
+      <p class="subtitle">Registra, consulta y actualiza los equipos disponibles.</p>
+    </div>
+    <button class="button button--primary" type="button" (click)="nuevo()">
+      <span aria-hidden="true">＋</span> Registrar equipo
+    </button>
+  </header>
 
-  <h2>Inventario de equipos</h2>
-  <a class="btn btn-primary" routerLink="/Regisinv">Registrar Equipo</a >
-  <table class="table table-striped">
-
-    <thead>
-
-      <tr>
-        <th>ID</th>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Cantidad</th>
-        <th>Estado</th>
-      </tr>
-
-    </thead>
-
-    <tbody>
-
-      @for (item of inventario; track item.id) {
-
-        <tr>
-
-          <td>{{ item.id }}</td>
-          <td>{{ item.codigo }}</td>
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.marca }}</td>
-          <td>{{ item.modelo }}</td>
-          <td>{{ item.cantidad }}</td>
-          <td>{{ item.estado }}</td>
-
-        </tr>
-
+  @if (mensaje) {
+    <div class="notice notice--success" role="status">{{ mensaje }}</div>
+  }
+  @if (error) {
+    <div class="notice notice--error" role="alert">
+      <span>{{ error }}</span>
+      @if (!mostrarFormulario) {
+        <button type="button" (click)="cargarInventario()">Reintentar</button>
       }
+    </div>
+  }
 
-    </tbody>
+  @if (mostrarFormulario) {
+    <div class="form-card">
+      <div class="form-heading">
+        <div>
+          <p class="eyebrow">{{ editandoId === null ? 'Nuevo registro' : 'Editar registro' }}</p>
+          <h2>{{ editandoId === null ? 'Datos del equipo' : 'Actualizar equipo' }}</h2>
+        </div>
+        <button class="close-button" type="button" aria-label="Cerrar formulario" (click)="cancelar()">×</button>
+      </div>
 
-  </table>
+      <form [formGroup]="formulario" (ngSubmit)="guardar()">
+        <div class="form-grid">
+          <label>
+            Código <span>*</span>
+            <input type="text" formControlName="codigo" placeholder="Ej. AC-001" />
+            @if (campoInvalido('codigo')) { <small>El código es obligatorio.</small> }
+          </label>
+          <label>
+            Nombre <span>*</span>
+            <input type="text" formControlName="nombre" placeholder="Ej. Aire acondicionado" />
+            @if (campoInvalido('nombre')) { <small>El nombre es obligatorio.</small> }
+          </label>
+          <label>
+            Marca <span>*</span>
+            <input type="text" formControlName="marca" placeholder="Marca del equipo" />
+            @if (campoInvalido('marca')) { <small>La marca es obligatoria.</small> }
+          </label>
+          <label>
+            Modelo <span>*</span>
+            <input type="text" formControlName="modelo" placeholder="Modelo del equipo" />
+            @if (campoInvalido('modelo')) { <small>El modelo es obligatorio.</small> }
+          </label>
+          <label>
+            Cantidad <span>*</span>
+            <input type="number" formControlName="cantidad" min="0" />
+            @if (campoInvalido('cantidad')) { <small>Ingresa una cantidad igual o mayor a cero.</small> }
+          </label>
+          <label>
+            Stock mínimo <span>*</span>
+            <input type="number" formControlName="stockMinimo" min="0" />
+            @if (campoInvalido('stockMinimo')) { <small>Ingresa un stock igual o mayor a cero.</small> }
+          </label>
+          <label class="full-width">
+            Descripción
+            <textarea formControlName="descripcion" rows="3" placeholder="Características o notas del equipo"></textarea>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="button button--secondary" type="button" (click)="cancelar()">Cancelar</button>
+          <button class="button button--primary" type="submit" [disabled]="guardando">
+            {{ guardando ? 'Guardando…' : editandoId === null ? 'Registrar equipo' : 'Guardar cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
 
-</div>
+  <div class="table-card">
+    <div class="table-heading">
+      <div><h2>Equipos registrados</h2><p>{{ inventario.length }} registro(s)</p></div>
+      <button class="refresh-button" type="button" (click)="cargarInventario()" [disabled]="cargando">Actualizar</button>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Código</th><th>Equipo</th><th>Marca / Modelo</th><th>Cantidad</th><th>Estado</th><th class="actions-heading">Acciones</th></tr></thead>
+        <tbody>
+          @if (cargando) {
+            <tr><td colspan="6" class="empty-state">Cargando inventario…</td></tr>
+          } @else {
+            @for (item of inventario; track item.id) {
+              <tr>
+                <td><strong class="code">{{ item.codigo }}</strong></td>
+                <td><strong>{{ item.nombre }}</strong><span class="description">{{ item.descripcion || 'Sin descripción' }}</span></td>
+                <td>{{ item.marca }}<span class="description">{{ item.modelo }}</span></td>
+                <td><strong>{{ item.cantidad }}</strong><span class="description">Mín. {{ item.stockMinimo }}</span></td>
+                <td><span class="status" [class.status--low]="item.estado === 'STOCK BAJO'" [class.status--empty]="item.estado === 'AGOTADO'">{{ item.estado }}</span></td>
+                <td class="row-actions">
+                  <button class="action-button action-button--edit" type="button" (click)="editar(item)" [attr.aria-label]="'Editar ' + item.nombre">Editar</button>
+                  <button class="action-button action-button--delete" type="button" (click)="eliminar(item)" [attr.aria-label]="'Eliminar ' + item.nombre">Eliminar</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="6" class="empty-state"><strong>No hay equipos registrados.</strong><span>Usa “Registrar equipo” para agregar el primero.</span></td></tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
