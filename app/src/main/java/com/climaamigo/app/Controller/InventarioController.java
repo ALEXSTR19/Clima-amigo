@@ -16,7 +16,7 @@ public class InventarioController {
 
     @Autowired
     private InventarioService inventarioService;
-
+ 
     // LISTAR TODO EL INVENTARIO
     @GetMapping
     public List<Inventario> listarInventario() {
