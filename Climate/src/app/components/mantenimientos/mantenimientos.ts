@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { MantenimientoService } from '../../services/mantenimiento-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Mantenimiento } from '../../models/mantenimiento.model';
@@ -7,7 +6,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-mantenimientos',
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './mantenimientos.html',
   styleUrl: './mantenimientos.css',
 })
@@ -15,15 +14,15 @@ export class Mantenimientos implements OnInit {
   private readonly mantenimientoService = inject(MantenimientoService);
   private readonly formBuilder = inject(FormBuilder);
 
-   mantenimientos: Mantenimiento[] = [];
-    editandoId: number | null = null;
-    mostrarFormulario = false;
-    cargando = false;
-    guardando = false;
-    mensaje = '';
-    error = '';
+  mantenimientos: Mantenimiento[] = [];
+  editandoId: number | null = null;
+  mostrarFormulario = false;
+  cargando = false;
+  guardando = false;
+  mensaje = '';
+  error = '';
 
-    readonly formulario = this.formBuilder.nonNullable.group({
+  readonly formulario = this.formBuilder.nonNullable.group({
     direccion: ['', [Validators.required, Validators.maxLength(50)]],
     nombreCliente: ['', [Validators.required, Validators.maxLength(100)]],
     descripcion: ['', Validators.maxLength(255)],
@@ -31,7 +30,6 @@ export class Mantenimientos implements OnInit {
     modelo: ['', [Validators.required, Validators.maxLength(80)]],
     cantidad: [0, [Validators.required, Validators.min(0)]],
   });
-
 
   ngOnInit(): void {
     this.cargarMantenimientos();
