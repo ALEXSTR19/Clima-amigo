@@ -3,6 +3,71 @@
         <h1>Mantenimientos</h1>
     </div>
     <button class="button button--primary" type="button" (click)="nuevo()">
-      <span aria-hidden="true">＋</span> Registrar equipo
+      <span aria-hidden="true">＋</span> Registrar Mantenimiento
     </button>
+
+@if (mensaje) {
+    <div class="notice notice--success" role="status">{{ mensaje }}</div>
+  }
+  @if (error) {
+    <div class="notice notice--error" role="alert">
+      <span>{{ error }}</span>
+      @if (!mostrarFormulario) {
+        <button type="button" (click)="cargarMantenimientos()">Reintentar</button>
+      }
+    </div>
+  }
+
+    @if (mostrarFormulario) {
+    <div class="form-card">
+      <div class="form-heading">
+        <div>
+          <p class="eyebrow">{{ editandoId === null ? 'Nuevo registro' : 'Editar registro' }}</p>
+          <h2>{{ editandoId === null ? 'Datos del equipo' : 'Actualizar equipo' }}</h2>
+        </div>
+        <button class="close-button" type="button" aria-label="Cerrar formulario" (click)="cancelar()">×</button>
+      </div>
+
+      <form [formGroup]="formulario" (ngSubmit)="guardar()">
+        <div class="form-grid">
+          <label>
+            Direccion <span>*</span>
+            <input type="text" formControlName="direccion" placeholder="calle zaragoza" />
+            @if (campoInvalido('direccion')) { <small>La direccion es obligatorio.</small> }
+          </label>
+          <label>
+            Nombre del cliente <span>*</span>
+            <input type="text" formControlName="nombreCliente" placeholder="Dani" />
+            @if (campoInvalido('nombreCliente')) { <small>El nombre del cliente es obligatorio.</small> }
+          </label>
+          <label>
+            Marca <span>*</span>
+            <input type="text" formControlName="marca" placeholder="Marca del equipo" />
+            @if (campoInvalido('marca')) { <small>La marca es obligatoria.</small> }
+          </label>
+          <label>
+            Modelo <span>*</span>
+            <input type="text" formControlName="modelo" placeholder="Modelo del equipo" />
+            @if (campoInvalido('modelo')) { <small>El modelo es obligatorio.</small> }
+          </label>
+          <label>
+            Cantidad <span>*</span>
+            <input type="number" formControlName="cantidad" min="0" />
+            @if (campoInvalido('cantidad')) { <small>Ingresa una cantidad igual o mayor a cero.</small> }
+          </label>
+
+          <label class="full-width">
+            Descripción
+            <textarea formControlName="descripcion" rows="3" placeholder="Características o notas del equipo"></textarea>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="button button--secondary" type="button" (click)="cancelar()">Cancelar</button>
+          <button class="button button--primary" type="submit" [disabled]="guardando">
+            {{ guardando ? 'Guardando…' : editandoId === null ? 'Registrar equipo' : 'Guardar cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
 </div>

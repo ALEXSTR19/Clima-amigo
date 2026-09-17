@@ -1,0 +1,61 @@
+:host { display: block; color: #183229; }
+.inventory-page { max-width: 1240px; margin: 0 auto; }
+.page-header, .form-heading, .table-heading, .form-actions, .notice { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.page-header { margin-bottom: 28px; }
+h1, h2, p { margin: 0; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -.04em; }
+h2 { font-size: 1.15rem; }
+.eyebrow { margin-bottom: 5px; color: #238464; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.subtitle, .table-heading p { margin-top: 7px; color: #687b74; }
+.button, .refresh-button, .action-button, .close-button { border: 0; cursor: pointer; font-weight: 700; }
+.button { padding: 12px 18px; border-radius: 10px; }
+.button--primary { color: white; background: #176b50; box-shadow: 0 6px 18px rgba(23,107,80,.2); }
+.button--primary:hover { background: #105a42; }
+.button--secondary { color: #315147; background: #e9f0ed; }
+button:disabled { cursor: wait; opacity: .65; }
+.notice { margin-bottom: 18px; padding: 13px 16px; border-radius: 10px; font-weight: 600; }
+.notice--success { color: #17603f; background: #ddf6e8; border: 1px solid #bde6ce; }
+.notice--error { color: #9c302e; background: #fff0ef; border: 1px solid #f3c7c4; }
+.notice button { color: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; }
+.form-card, .table-card { margin-bottom: 24px; overflow: hidden; background: white; border: 1px solid #dfe8e3; border-radius: 16px; box-shadow: 0 8px 30px rgba(33,72,59,.07); }
+.form-card { padding: 24px; }
+.form-heading { margin-bottom: 22px; }
+.close-button { color: #64766f; background: transparent; font-size: 1.7rem; line-height: 1; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+label { display: flex; flex-direction: column; gap: 7px; color: #354f46; font-size: .88rem; font-weight: 700; }
+label > span { display: inline; color: #c84c45; }
+input, textarea { width: 100%; padding: 11px 12px; color: #183229; background: #fbfdfc; border: 1px solid #cbd9d3; border-radius: 8px; font: inherit; outline: none; }
+input:focus, textarea:focus { border-color: #238464; box-shadow: 0 0 0 3px rgba(35,132,100,.12); }
+textarea { resize: vertical; }
+small { color: #b23832; font-weight: 500; }
+.full-width { grid-column: 1 / -1; }
+.form-actions { justify-content: flex-end; margin-top: 22px; }
+.table-heading { padding: 20px 22px; border-bottom: 1px solid #e4ebe7; }
+.table-heading p { font-size: .85rem; }
+.refresh-button { padding: 8px 12px; color: #176b50; background: #eaf5f0; border-radius: 8px; }
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 13px 16px; color: #65766f; background: #f6f9f7; font-size: .72rem; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+td { padding: 16px; border-top: 1px solid #edf1ef; font-size: .9rem; vertical-align: middle; }
+tbody tr:hover { background: #fbfdfc; }
+.code { color: #176b50; }
+.description { display: block; max-width: 220px; margin-top: 4px; overflow: hidden; color: #778781; font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
+.status { display: inline-block; padding: 5px 9px; color: #17603f; background: #ddf6e8; border-radius: 999px; font-size: .7rem; font-weight: 800; white-space: nowrap; }
+.status--low { color: #8b5c09; background: #fff2c9; }
+.status--empty { color: #a23732; background: #fee4e2; }
+.actions-heading, .row-actions { text-align: right; }
+.row-actions { white-space: nowrap; }
+.action-button { padding: 7px 9px; background: transparent; border-radius: 6px; }
+.action-button--edit { color: #176b50; }
+.action-button--delete { color: #b23832; }
+.action-button:hover { background: #edf3f0; }
+.empty-state { padding: 44px; color: #71817b; text-align: center; }
+.empty-state strong, .empty-state span { display: block; }
+.empty-state strong { margin-bottom: 5px; color: #40564e; }
+@media (max-width: 700px) {
+  .page-header { align-items: flex-start; flex-direction: column; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full-width { grid-column: auto; }
+  .page-header .button { width: 100%; }
+  .form-card { padding: 18px; }
+}

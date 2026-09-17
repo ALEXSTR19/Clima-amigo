@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-mantenimientos',
-  imports: [RouterModule],
+  imports: [RouterModule, ReactiveFormsModule],
   templateUrl: './mantenimientos.html',
   styleUrl: './mantenimientos.css',
 })
@@ -34,10 +34,10 @@ export class Mantenimientos implements OnInit {
 
 
   ngOnInit(): void {
-    this.cargarInventario();
+    this.cargarMantenimientos();
   }
 
-  cargarInventario(): void {
+  cargarMantenimientos(): void {
       this.cargando = true;
       this.error = '';
       this.mantenimientoService
@@ -96,7 +96,7 @@ export class Mantenimientos implements OnInit {
               ? 'Equipo registrado correctamente.'
               : 'Equipo actualizado correctamente.';
             this.cancelar();
-            this.cargarInventario();
+            this.cargarMantenimientos();
           },
           error: () => (this.error = 'No se pudieron guardar los cambios. Revisa los datos.'),
         });
