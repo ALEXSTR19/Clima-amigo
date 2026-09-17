@@ -1,8 +1,189 @@
-<div class="container">
-    <div class="head">
-        <h1>Mantenimientos</h1>
+<section class="maintenance-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Servicio técnico</p>
+      <h1>Mantenimientos</h1>
+      <p class="subtitle">Consulta y administra los mantenimientos de los equipos.</p>
     </div>
     <button class="button button--primary" type="button" (click)="nuevo()">
-      <span aria-hidden="true">＋</span> Registrar equipo
+      <span aria-hidden="true">＋</span> Registrar mantenimiento
     </button>
-</div>
+  </header>
+
+  @if (mensaje) {
+    <div class="notice notice--success" role="status">{{ mensaje }}</div>
+  }
+  @if (error) {
+    <div class="notice notice--error" role="alert">
+      <span>{{ error }}</span>
+      @if (!mostrarFormulario) {
+        <button type="button" (click)="cargarMantenimientos()">Reintentar</button>
+      }
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+    <div class="form-card">
+      <div class="form-heading">
+        <div>
+          <p class="eyebrow">{{ editandoId === null ? 'Nuevo registro' : 'Editar registro' }}</p>
+          <h2>
+            {{ editandoId === null ? 'Datos del mantenimiento' : 'Actualizar mantenimiento' }}
+          </h2>
+        </div>
+        <button
+          class="close-button"
+          type="button"
+          aria-label="Cerrar formulario"
+          (click)="cancelar()"
+        >
+          ×
+        </button>
+      </div>
+
+      <form [formGroup]="formulario" (ngSubmit)="guardar()">
+        <div class="form-grid">
+          <label>
+            Cliente <span>*</span>
+            <input type="text" formControlName="nombreCliente" placeholder="Nombre del cliente" />
+            @if (campoInvalido('nombreCliente')) {
+              <small>El nombre del cliente es obligatorio.</small>
+            }
+          </label>
+          <label>
+            Dirección <span>*</span>
+            <input type="text" formControlName="direccion" placeholder="Dirección del servicio" />
+            @if (campoInvalido('direccion')) {
+              <small>La dirección es obligatoria.</small>
+            }
+          </label>
+          <label>
+            Marca <span>*</span>
+            <input type="text" formControlName="marca" placeholder="Marca del equipo" />
+            @if (campoInvalido('marca')) {
+              <small>La marca es obligatoria.</small>
+            }
+          </label>
+          <label>
+            Modelo <span>*</span>
+            <input type="text" formControlName="modelo" placeholder="Modelo del equipo" />
+            @if (campoInvalido('modelo')) {
+              <small>El modelo es obligatorio.</small>
+            }
+          </label>
+          <label>
+            Cantidad <span>*</span>
+            <input type="number" formControlName="cantidad" min="0" />
+            @if (campoInvalido('cantidad')) {
+              <small>Ingresa una cantidad igual o mayor a cero.</small>
+            }
+          </label>
+          <label class="full-width">
+            Descripción
+            <textarea
+              formControlName="descripcion"
+              rows="3"
+              placeholder="Trabajo realizado o notas del servicio"
+            ></textarea>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="button button--secondary" type="button" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button class="button button--primary" type="submit" [disabled]="guardando">
+            {{
+              guardando
+                ? 'Guardando…'
+                : editandoId === null
+                  ? 'Registrar mantenimiento'
+                  : 'Guardar cambios'
+            }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <div class="table-card">
+    <div class="table-heading">
+      <div>
+        <h2>Mantenimientos registrados</h2>
+        <p>{{ mantenimientos.length }} registro(s)</p>
+      </div>
+      <button
+        class="refresh-button"
+        type="button"
+        (click)="cargarMantenimientos()"
+        [disabled]="cargando"
+      >
+        Actualizar
+      </button>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Dirección</th>
+            <th>Equipo</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th class="actions-heading">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (cargando) {
+            <tr>
+              <td colspan="6" class="empty-state">Cargando mantenimientos…</td>
+            </tr>
+          } @else {
+            @for (item of mantenimientos; track item.id ?? $index) {
+              <tr>
+                <td>
+                  <strong>{{ item.nombreCliente }}</strong
+                  ><span class="description">{{ item.descripcion || 'Sin descripción' }}</span>
+                </td>
+                <td>{{ item.direccion }}</td>
+                <td>
+                  {{ item.marca }}<span class="description">{{ item.modelo }}</span>
+                </td>
+                <td>
+                  <strong>{{ item.cantidad }}</strong>
+                </td>
+                <td>
+                  <span class="status">{{ item.estado || 'PENDIENTE' }}</span>
+                </td>
+                <td class="row-actions">
+                  <button
+                    class="action-button action-button--edit"
+                    type="button"
+                    (click)="editar(item)"
+                    [attr.aria-label]="'Editar mantenimiento de ' + item.nombreCliente"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="action-button action-button--delete"
+                    type="button"
+                    (click)="eliminar(item)"
+                    [attr.aria-label]="'Eliminar mantenimiento de ' + item.nombreCliente"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="6" class="empty-state">
+                  <strong>No hay mantenimientos registrados.</strong
+                  ><span>Usa “Registrar mantenimiento” para agregar el primero.</span>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

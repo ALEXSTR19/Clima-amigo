@@ -1,47 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Mantenimientos } from '../components/mantenimientos/mantenimientos';
+import { Mantenimiento } from '../models/mantenimiento.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MantenimientoService {
-    private http = inject(HttpClient);
-    
-    private apiUrl = 'http://localhost:8080/api/mantenimientos';
+  private http = inject(HttpClient);
 
-    obtenerMantenimientos(): Observable<Mantenimientos[]> {
-        return this.http.get<Mantenimientos[]>(this.apiUrl);
-      }
+  private apiUrl = 'http://localhost:8080/api/mantenimientos';
 
-    obtenerPorId(id: number): Observable<Mantenimientos> {
-        return this.http.get<Mantenimientos>(
-          `${this.apiUrl}/${id}`
-        );
-      }
-    
-      crear(item: Mantenimientos): Observable<Mantenimientos> {
-        return this.http.post<Mantenimientos>(
-          this.apiUrl,
-          item
-        );
-      }
-    
-      actualizar(
-        id: number,
-        item: Mantenimientos
-      ): Observable<Mantenimientos> {
+  obtenerMantenimientos(): Observable<Mantenimiento[]> {
+    return this.http.get<Mantenimiento[]>(this.apiUrl);
+  }
 
-        return this.http.put<Mantenimientos>(
-          `${this.apiUrl}/${id}`,
-          item
-        );
-      }
-    
-      eliminar(id: number): Observable<void> {
-        return this.http.delete<void>(
-          `${this.apiUrl}/${id}`
-        );
-      }
+  obtenerPorId(id: number): Observable<Mantenimiento> {
+    return this.http.get<Mantenimiento>(`${this.apiUrl}/${id}`);
+  }
+
+  crear(item: Mantenimiento): Observable<Mantenimiento> {
+    return this.http.post<Mantenimiento>(this.apiUrl, item);
+  }
+
+  actualizar(id: number, item: Mantenimiento): Observable<Mantenimiento> {
+    return this.http.put<Mantenimiento>(`${this.apiUrl}/${id}`, item);
+  }
+
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
