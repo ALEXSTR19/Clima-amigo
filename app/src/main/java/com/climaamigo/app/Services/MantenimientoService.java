@@ -66,5 +66,10 @@ public class MantenimientoService {
         if (mantenimiento.getDescripcion() != null) {
             mantenimiento.setDescripcion(mantenimiento.getDescripcion().trim());
         }
+
+        mantenimiento.setNombreCliente(mantenimiento.getNombreCliente().trim());
+        mantenimiento.setDireccion(mantenimiento.getDireccion().trim());
+        mantenimiento.setMarca(mantenimiento.getMarca().trim());
+        mantenimiento.setModelo(mantenimiento.getModelo().trim());
     }
 }

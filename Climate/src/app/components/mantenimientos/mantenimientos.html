@@ -78,6 +78,14 @@
               <small>Ingresa una cantidad igual o mayor a cero.</small>
             }
           </label>
+          <label>
+            Estado <span>*</span>
+            <select formControlName="estado">
+              @for (estado of estados; track estado.valor) {
+                <option [value]="estado.valor">{{ estado.etiqueta }}</option>
+              }
+            </select>
+          </label>
           <label class="full-width">
             Descripción
             <textarea
