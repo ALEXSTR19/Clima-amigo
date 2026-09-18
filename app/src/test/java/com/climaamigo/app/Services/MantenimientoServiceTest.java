@@ -40,6 +40,8 @@ class MantenimientoServiceTest {
 
         assertNull(guardado.getId());
         assertEquals("PENDIENTE", guardado.getEstado());
+        assertEquals("Cliente", guardado.getNombreCliente());
+        assertEquals("Descripción", guardado.getDescripcion());
         verify(mantenimientoRepository).save(mantenimiento);
     }
 
@@ -83,11 +85,11 @@ class MantenimientoServiceTest {
     private Mantenimientos mantenimiento(Long id, String estado) {
         Mantenimientos mantenimiento = new Mantenimientos();
         mantenimiento.setId(id);
-        mantenimiento.setNombreCliente("Cliente");
-        mantenimiento.setDireccion("Dirección");
+        mantenimiento.setNombreCliente(" Cliente ");
+        mantenimiento.setDireccion(" Dirección ");
         mantenimiento.setDescripcion(" Descripción ");
-        mantenimiento.setMarca("Marca");
-        mantenimiento.setModelo("Modelo");
+        mantenimiento.setMarca(" Marca ");
+        mantenimiento.setModelo(" Modelo ");
         mantenimiento.setCantidad(1);
         mantenimiento.setEstado(estado);
         return mantenimiento;
