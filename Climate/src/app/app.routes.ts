@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
+import { Checkout } from './components/checkout/checkout';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -48,11 +49,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/inv-regis/inv-regis').then((i) => i.InvRegis),
       },
+      
     ],
   },
 
   { path: 'login', component: Login },
-
+  {
+    path: 'checkout',
+    component: Checkout
+  },
   {
     path: 'registro',
     loadComponent: () => import('./components/register/register').then((r) => r.Register),

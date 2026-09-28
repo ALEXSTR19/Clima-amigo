@@ -1,0 +1,28 @@
+<div class="checkout-container">
+
+  <h2>Realizar pago</h2>
+
+  @if (cargando) {
+    <p>Cargando formulario de pago...</p>
+  }
+
+  <div #paymentElement></div>
+
+  <button
+    type="button"
+    (click)="pagar()"
+    [disabled]="cargando || pagando">
+
+    @if (pagando) {
+      Procesando...
+    } @else {
+      Pagar
+    }
+
+  </button>
+
+  @if (mensaje) {
+    <p>{{ mensaje }}</p>
+  }
+
+</div>
